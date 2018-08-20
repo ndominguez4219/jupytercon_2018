@@ -41,9 +41,9 @@ class TrainingPlotsDashboard(Box):
 
         # accuracy curve
         self.accuracy_fig = plt.figure(title='Accuracy Curve')
-        plt.scales(scales={'y': LinearScale(min=.99, max=1)})
+        plt.scales(scales={'y': LinearScale(min=0, max=1)})
         axes_options = {'y': {'label': 'R Square',
-                              'tick_format': '.2%',
+                              'tick_format': '.1%',
                               'label_offset': '-1em',
                               'label_location': 'end'},
                         'x': {'label': 'Epochs'}}
