@@ -1,5 +1,5 @@
 # JupyterCon 2018
-Notebooks and code for my 2018 JupyterCon [talk](https://conferences.oreilly.com/jupyter/jup-ny/public/schedule/detail/71406)
+Notebooks and code of my 2018 JupyterCon [talk](https://conferences.oreilly.com/jupyter/jup-ny/public/schedule/detail/71406)
 
 
 ## Dependencies
