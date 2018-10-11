@@ -39,3 +39,4 @@ The following models/algorithms/tools were covered in the talk:
 ## TODO
 * Improve documentation
 * Migrate to latest versions of ipywidgets and bqplot
+* Make notebooks run in binder
