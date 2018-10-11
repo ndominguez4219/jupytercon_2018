@@ -3,7 +3,6 @@ Notebooks and code of my 2018 JupyterCon [talk](https://conferences.oreilly.com/
 
 
 ## Dependencies
-
 The notebooks and code depend on the following python packages:
 
 - `numpy` (Version 1.13.3)
@@ -34,5 +33,9 @@ The following models/algorithms/tools were covered in the talk:
 
 * Neural Network Builder
 ![alt text](images/netbuilder1.png "Neural Net Builder")
-![alt text](images/netbuilder2.png "Neural Net Builder")
-![alt text](images/netbuilder3.png "Neural Net Builder")
+![alt text](images/netbuilder2.png "Neural Net Builder - Loss/Accuracy Curves")
+![alt text](images/netbuilder3.png "Neural Net Builder - Distributions of Weights/Biases/Activations")
+
+## TODO
+* Improve documentation
+* Migrate to latest versions of ipywidgets and bqplot
