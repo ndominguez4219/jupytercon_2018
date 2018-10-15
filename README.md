@@ -5,14 +5,14 @@ Notebooks and code of my 2018 JupyterCon [talk](https://conferences.oreilly.com/
 ## Dependencies
 The notebooks and code depend on the following python packages:
 
-- `numpy` (Version 1.13.3)
+- `numpy` (Version 1.14.0)
 - `scipy` (Version 1.0.0)
 - `pandas` (Version 0.22.0)
-- `sklearn` (Version 0.18.1)
-- `tensorflow`(Version 1.0.0)
-- `keras` (Version 2.0.3)
-- `ipywidgets` (Version 6.0.0)
-- `bqplot` (Version 0.9.1)
+- `sklearn` (Version 0.19.1)
+- `tensorflow`(Version 1.2.1)
+- `keras` (Version 2.0.6)
+- `ipywidgets` (Version 7.1.1)
+- `bqplot` (Version 0.11.1)
 
 ## Notes
 * All the examples in the talk were run in a black-themed notebook (and black-themed `ipywidgets` and `bqplot`). The colors used in the visualizations and plots were chosen to work well on the black background. Since the classic notebooks are white-themed, please update the colors (especially lighter colors like yellow) accordingly.
