@@ -52,14 +52,16 @@ class RegressionDiagnosticPlots(DiagnosticPlots):
         # residuals plot
         self.residuals_fig = plt.figure(title='Residuals vs Predicted Values',
                                         layout=Layout(width='960px',
-                                                      height='600px'))
+                                                      height='600px',
+                                                      overflow_x='hidden',
+                                                      overflow_y='hidden'))
 
         axes_options = {'y': {'label': 'Residual', 'tick_format': '0.1f'},
                         'x': {'label': 'Predicted Value'}}
 
-        self.residuals_plot = plt.plot([], [], 'yo',
-                                       default_size=16, stroke='black',
-                                       axes_options=axes_options)
+        self.residuals_plot = plt.scatter([], [], colors=['yellow'],
+                                          default_size=16, stroke='black',
+                                          axes_options=axes_options)
         # zero line
         plt.hline(level=0, colors=['limegreen'], stroke_width=3)
 

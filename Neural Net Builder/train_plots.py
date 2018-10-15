@@ -54,33 +54,34 @@ class TrainingPlotsDashboard(Box):
                                       labels=['Train', 'Test'])
 
         self.progress_bar = IntProgress(description='Training Progress',
-                                        min=0, max=(self.epochs - 1))
+                                        min=0, max=(self.epochs - 1),
+                                        style={'description_width': 'initial'})
 
         # first tab components: loss/accuracy curves
         self.plots_layout = VBox([self.progress_bar,
                                   HBox([self.loss_fig, self.accuracy_fig])],
                                  layout=self.tab_layout)
 
-        axes_options = {'sample': {'grid_lines': 'none',
-                                   'tick_format': '.1f',
-                                   'num_ticks': 5},
-                        'count': {'grid_lines': 'none',
-                                  'num_ticks': 6}}
+        axes_options = {'x': {'grid_lines': 'none',
+                              'tick_format': '.1f',
+                              'num_ticks': 5},
+                        'y': {'grid_lines': 'none',
+                              'num_ticks': 6}}
 
         # weights hist
         self.weights_fig = plt.figure(title='Weights')
-        self.weights_hist = plt.hist([], colors=['salmon'],
-                                     axes_options=axes_options, bins=25)
+        self.weights_hist = plt.bin(sample=np.array([]), colors=['salmon'],
+                                    axes_options=axes_options)
 
         # biases hist
         self.biases_fig = plt.figure(title='Biases')
-        self.biases_hist = plt.hist([], colors=['salmon'],
-                                    axes_options=axes_options, bins=25)
+        self.biases_hist = plt.bin(sample=np.array([]), colors=['salmon'],
+                                   axes_options=axes_options)
 
         # activations hist
         self.activations_fig = plt.figure(title='Activations')
-        self.activations_hist = plt.hist([], colors=['salmon'],
-                                         axes_options=axes_options, bins=25)
+        self.activations_hist = plt.bin(sample=np.array([]), colors=['salmon'],
+                                        axes_options=axes_options)
 
         for fig in [self.weights_fig, self.biases_fig, self.activations_fig]:
             fig.layout.width = '400px'
@@ -107,7 +108,7 @@ class TrainingPlotsDashboard(Box):
 
         for hist in [self.weights_hist, self.biases_hist,
                      self.activations_hist]:
-            hist.sample = np.array([0])
+            hist.sample = np.array([])
 
 
 class TrainingCallback(Callback):
@@ -207,19 +208,23 @@ class TrainingCallback(Callback):
         layer_idx = self.dashboard.layers_dd.options.index(selected_layer)
         epoch_idx = self.dashboard.epoch_slider.value - 1
 
-        self.dashboard.weights_hist.sample = \
-            self.epoch_weights[epoch_idx][layer_idx]
+        with self.dashboard.weights_hist.hold_sync():
+            self.dashboard.weights_hist.sample = \
+                self.epoch_weights[epoch_idx][layer_idx]
+            self.dashboard.weights_hist.bins = 25
 
-        self.dashboard.biases_hist.sample = \
-            self.epoch_biases[epoch_idx][layer_idx]
+        with self.dashboard.biases_hist.hold_sync():
+            self.dashboard.biases_hist.sample = \
+                self.epoch_biases[epoch_idx][layer_idx]
+            self.dashboard.biases_hist.bins = 25
 
         # update histograms except for the last layer which is output layer
         if layer_idx != num_layers - 1:
-            # randomly sample 10K activations to go easy on hist rendering
-            hist_size = min(10000,
-                            len(self.epoch_activations[epoch_idx][layer_idx]))
-            self.dashboard.activations_hist.sample = \
-                np.random.choice(self.epoch_activations[epoch_idx][layer_idx],
-                                 size=hist_size, replace=False)
+            with self.dashboard.activations_hist.hold_sync():
+                self.dashboard.activations_hist.sample = \
+                    self.epoch_activations[epoch_idx][layer_idx]
+                self.dashboard.activations_hist.bins = 25
         else:
-            self.dashboard.activations_hist.sample = np.zeros(100)
+            with self.dashboard.activations_hist.hold_sync():
+                self.dashboard.activations_hist.sample = np.array([0])
+                self.dashboard.activations_hist.bins = 1

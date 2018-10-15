@@ -10,9 +10,10 @@ from train_plots import *
 from diagnostic_plots import *
 
 
-textbox_layout1 = Layout(width='100px')
-textbox_layout2 = Layout(width='180px')
-textbox_layout3 = Layout(width='250px')
+overflow_args = dict(overflow_x='hidden', overflow_y='hidden')
+textbox_layout1 = Layout(width='100px', **overflow_args)
+textbox_layout2 = Layout(width='180px', **overflow_args)
+textbox_layout3 = Layout(width='250px', **overflow_args)
 btn_layout = Layout(width='34px')
 
 widget_map = {float: FloatText, int: IntText, bool: Checkbox}
@@ -53,17 +54,17 @@ class OutputLayer(Layer):
 
     def build_widgets(self, *args, **kwargs):
         Layer.build_widgets(self, *args, **kwargs)
-        self.activation_select = Select(options=activation_choices,
-                                        layout=textbox_layout1,
-                                        value=activation_choices['linear'])
+        self.activation_dropdown = Dropdown(options=activation_choices,
+                                            layout=textbox_layout1,
+                                            value=activation_choices['linear'])
         self.widget_layout = VBox([self.label,
                                    self.nodes_box,
-                                   self.activation_select])
+                                   self.activation_dropdown])
 
     def get_data(self):
         return dict(name=self.name,
                     nodes=self.nodes_box.value,
-                    activation=self.activation_select.value)
+                    activation=self.activation_dropdown.value)
 
 
 class HiddenLayer(OutputLayer):
@@ -75,20 +76,20 @@ class HiddenLayer(OutputLayer):
         OutputLayer.build_widgets(self, *args, **kwargs)
         self.nodes_box.disabled = False
 
-        self.activation_select.value = activation_choices['relu']
+        self.activation_dropdown.value = activation_choices['relu']
         self.dropout_prob_box = FloatText(value=0,
                                           layout=textbox_layout1)
         self.bn_check = Checkbox(layout=textbox_layout1)
         self.widget_layout = VBox([self.label,
                                    self.nodes_box,
-                                   self.activation_select,
+                                   self.activation_dropdown,
                                    self.bn_check,
                                    self.dropout_prob_box])
 
     def get_data(self):
         return dict(name=self.name,
                     nodes=self.nodes_box.value,
-                    activation=self.activation_select.value,
+                    activation=self.activation_dropdown.value,
                     batch_norm=self.bn_check.value,
                     dropout_p=self.dropout_prob_box.value)
 
@@ -137,15 +138,15 @@ class NeuralNetworkBuilder(Box):
                                  value=64,
                                  layout=textbox_layout2)
 
-        self.loss_box = Select(description='Loss',
-                               options=loss_choices,
-                               value=loss_choices['mse'],
-                               layout=textbox_layout3)
+        self.loss_box = Dropdown(description='Loss',
+                                 options=loss_choices,
+                                 value=loss_choices['mse'],
+                                 layout=textbox_layout3)
 
-        self.optimizer_box = Select(description='Optimizer',
-                                    options=optimizer_choices,
-                                    value=optimizer_choices['adam'],
-                                    layout=textbox_layout3)
+        self.optimizer_box = Dropdown(description='Optimizer',
+                                      options=optimizer_choices,
+                                      value=optimizer_choices['adam'],
+                                      layout=textbox_layout3)
         self.optim_params_label = HTML('<div style="width: 250px; ' +
                                        'text-align: center; ' +
                                        'font-size: 16px">optimizer params' +
