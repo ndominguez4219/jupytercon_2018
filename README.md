@@ -15,10 +15,10 @@ The notebooks and code depend on the following python packages:
 - `bqplot` (Version 0.11.1)
 
 ## Notes
-* All the examples in the talk were run in a black-themed notebook (and black-themed `ipywidgets` and `bqplot`). The colors used in the visualizations and plots were chosen to work well on the black background. Since the classic notebooks are white-themed, please update the colors (especially lighter colors like yellow) accordingly.
+* All the examples in the talk were run in a black-themed notebook (and black-themed `ipywidgets` and `bqplot`). The colors used in the visualizations and plots were chosen to work well on the black background. Since the classic notebooks are white-themed, colors in the plots (especially lighter colors like yellow) need to be updated accordingly.
 * Special add-ons like full-screen button etc. were used to render the visualizations on a full screen. These are not available by default in the classic Jupyter notebook.
 
-(Hopefully with Jupyterlab black-themed notebooks/widgets and full-screen rendering will be available for all)
+(Hopefully with Jupyterlab, black-themed notebooks/widgets and full-screen rendering will be available for all)
 
 The following models/algorithms/tools were covered in the talk:
 * Kernel Regression
